@@ -8,23 +8,26 @@
     tools:context=".MainActivity"
     android:background="@drawable/background"
      >
+
     <TextView
         android:id="@+id/showname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Name"
+        android:text="QUIZ GAME"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="50sp"
+        android:layout_marginTop="212dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/inputName"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="364dp"
         android:hint="Name"
+        android:background="@drawable/edit_text_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,14 +37,13 @@
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClickPlayBtn"
         android:text="@string/Play"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputName"
-        app:layout_constraintVertical_bias="0.189"
-        android:onClick="onClickPlayBtn"/>
+        android:layout_marginBottom="250dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout >
