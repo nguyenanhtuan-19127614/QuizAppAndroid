@@ -13,10 +13,11 @@
         android:id="@+id/showname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QUIZ GAME"
+        android:layout_marginTop="252dp"
+        android:text="@string/icon"
         android:textColor="@color/white"
         android:textSize="50sp"
-        android:layout_marginTop="212dp"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,10 +41,11 @@
         android:onClick="onClickPlayBtn"
         android:text="@string/Play"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputName"
-        android:layout_marginBottom="250dp" />
+        app:layout_constraintVertical_bias="0.111" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout >
