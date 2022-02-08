@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
@@ -99,10 +101,22 @@ public class QuizActivity extends AppCompatActivity {
     private void setView(int curPos){
         numberQuestionView.setText(" Number Question:" + this.numQuest+ "/" + this.quizList.size());
         scoreView.setText("Score:" + curScore);
-        questionName.setText(quizList.get(curPos).getQuestion());
-        option1.setText(quizList.get(curPos).getAns1());
-        option2.setText(quizList.get(curPos).getAns2());
-        option3.setText(quizList.get(curPos).getAns3());
-        option4.setText(quizList.get(curPos).getAns4());
+        if(this.numQuest==this.quizList.size())
+        {
+            String result= "Your Score Is: "+ curScore;
+            Toast toast = Toast.makeText(QuizActivity.this, result,  Toast.LENGTH_SHORT);
+            toast.show();
+            this.curPos=random.nextInt(quizList.size());
+            curScore=0;
+            numQuest=1;
+        }
+        else
+        {
+            questionName.setText(quizList.get(curPos).getQuestion());
+            option1.setText(quizList.get(curPos).getAns1());
+            option2.setText(quizList.get(curPos).getAns2());
+            option3.setText(quizList.get(curPos).getAns3());
+            option4.setText(quizList.get(curPos).getAns4());
+        }
     }
 }
