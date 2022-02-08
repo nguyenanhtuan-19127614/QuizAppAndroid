@@ -3,9 +3,11 @@ package com.example.quizappandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
@@ -27,9 +29,64 @@ public class QuizActivity extends AppCompatActivity {
         option4=findViewById(R.id.opt4);
         quizList=new ArrayList<>();
         random=new Random();
+        //lấy dữ liệu quiz
         getQuiz(quizList);
         curPos=random.nextInt(quizList.size());
+        //set data lên màn hình
         setView(curPos);
+        //handle button answer click
+        option1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
+                        option1.getText().toString().trim().toLowerCase()))
+                {
+                    curScore+=1;
+                }
+                numQuest++;
+                curPos=random.nextInt(quizList.size());
+                setView(curPos);
+            }
+        });
+        option2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
+                        option2.getText().toString().trim().toLowerCase()))
+                {
+                    curScore+=1;
+                }
+                numQuest++;
+                curPos=random.nextInt(quizList.size());
+                setView(curPos);
+            }
+        });
+        option3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
+                        option3.getText().toString().trim().toLowerCase()))
+                {
+                    curScore+=1;
+                }
+                numQuest++;
+                curPos=random.nextInt(quizList.size());
+                setView(curPos);
+            }
+        });
+        option4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
+                        option4.getText().toString().trim().toLowerCase()))
+                {
+                    curScore+=1;
+                }
+                numQuest++;
+                curPos=random.nextInt(quizList.size());
+                setView(curPos);
+            }
+        });
     }
     private void getQuiz(ArrayList<QuizBody> quizList){
         quizList.add(new QuizBody("1+1","2","3","4","5","2"));
@@ -40,7 +97,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
     private void setView(int curPos){
-        numberQuestionView.setText("Number Question:" + this.numQuest+ "/" + this.quizList.size());
+        numberQuestionView.setText(" Number Question:" + this.numQuest+ "/" + this.quizList.size());
         scoreView.setText("Score:" + curScore);
         questionName.setText(quizList.get(curPos).getQuestion());
         option1.setText(quizList.get(curPos).getAns1());
