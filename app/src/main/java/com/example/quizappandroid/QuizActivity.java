@@ -1,15 +1,15 @@
 package com.example.quizappandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
@@ -18,6 +18,7 @@ public class QuizActivity extends AppCompatActivity {
     private ArrayList<QuizBody> quizList;
     Random random;
     int curPos, curScore=0, numQuest=0;
+    Drawable originBtnColor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class QuizActivity extends AppCompatActivity {
         option2=findViewById(R.id.opt2);
         option3=findViewById(R.id.opt3);
         option4=findViewById(R.id.opt4);
+        originBtnColor=option1.getBackground();
         quizList=new ArrayList<>();
         random=new Random();
         //lấy dữ liệu quiz
@@ -37,59 +39,12 @@ public class QuizActivity extends AppCompatActivity {
         //set data lên màn hình
         setView(curPos);
         //handle button answer click
-        option1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
-                        option1.getText().toString().trim().toLowerCase()))
-                {
-                    curScore+=1;
-                }
-                numQuest++;
-                curPos=random.nextInt(quizList.size());
-                setView(curPos);
-            }
-        });
-        option2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
-                        option2.getText().toString().trim().toLowerCase()))
-                {
-                    curScore+=1;
-                }
-                numQuest++;
-                curPos=random.nextInt(quizList.size());
-                setView(curPos);
-            }
-        });
-        option3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
-                        option3.getText().toString().trim().toLowerCase()))
-                {
-                    curScore+=1;
-                }
-                numQuest++;
-                curPos=random.nextInt(quizList.size());
-                setView(curPos);
-            }
-        });
-        option4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
-                        option4.getText().toString().trim().toLowerCase()))
-                {
-                    curScore+=1;
-                }
-                numQuest++;
-                curPos=random.nextInt(quizList.size());
-                setView(curPos);
-            }
-        });
+        optionClick(option1);
+        optionClick(option2);
+        optionClick(option3);
+        optionClick(option4);
     }
+
     private void getQuiz(ArrayList<QuizBody> quizList){
         quizList.add(new QuizBody("1+1","2","3","4","5","2"));
         quizList.add(new QuizBody("1+2","2","3","4","5","3"));
@@ -97,6 +52,28 @@ public class QuizActivity extends AppCompatActivity {
         quizList.add(new QuizBody("1+4","2","3","4","5","5"));
         quizList.add(new QuizBody("1+5","2","6","4","5","6"));
 
+    }
+    private void optionClick(Button opt)
+    {
+        opt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quizList.get(curPos).getTrueAns().trim().toLowerCase().equals(
+                        opt.getText().toString().trim().toLowerCase()))
+                {
+                    curScore+=1;
+                    opt.setBackgroundColor(Color.GREEN);
+                }
+                else
+                {
+                    opt.setBackgroundColor(Color.RED);
+                }
+
+                numQuest++;
+                curPos=random.nextInt(quizList.size());
+                setView(curPos);
+            }
+        });
     }
     private void setView(int curPos){
         numberQuestionView.setText(" Number Question:" + this.numQuest+ "/" + this.quizList.size());
