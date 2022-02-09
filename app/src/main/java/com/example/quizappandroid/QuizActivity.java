@@ -17,7 +17,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button option1,option2,option3,option4;
     private ArrayList<QuizBody> quizList;
     Random random;
-    int curPos, curScore=0, numQuest=1;
+    int curPos, curScore=0, numQuest=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,10 +108,13 @@ public class QuizActivity extends AppCompatActivity {
             toast.show();
             this.curPos=random.nextInt(quizList.size());
             curScore=0;
-            numQuest=1;
+            numQuest=0;
+            numberQuestionView.setText(" Number Question:" + this.numQuest+ "/" + this.quizList.size());
+            scoreView.setText("Score:" + curScore);
         }
         else
         {
+
             questionName.setText(quizList.get(curPos).getQuestion());
             option1.setText(quizList.get(curPos).getAns1());
             option2.setText(quizList.get(curPos).getAns2());
