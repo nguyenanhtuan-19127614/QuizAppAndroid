@@ -12,6 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button playBtn;
+    String playerName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText inputname=findViewById(R.id.inputName);
-                String welcome= "Hello "+ inputname.getText().toString();
+                playerName=inputname.getText().toString();
+                String welcome= "Hello "+ playerName;
                 Toast toast = Toast.makeText(MainActivity.this, welcome,  Toast.LENGTH_SHORT);
                 toast.show();
                 openQuizActivity();
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openQuizActivity(){
         Intent quizActivity = new Intent(this, QuizActivity.class);
+        quizActivity.putExtra("playerName", playerName);
         startActivity(quizActivity);
     }
 

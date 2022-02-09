@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -43,7 +44,8 @@ public class QuizActivity extends AppCompatActivity {
         option4=findViewById(R.id.opt4);
         originBtnColor=option1.getBackground();
         quizList=new ArrayList<>();
-        EditText inputname=findViewById(R.id.inputName);
+        Intent intent = getIntent();
+        playerName = intent.getExtras().getString("playerName");
 
         random=new Random();
         //lấy dữ liệu quiz
@@ -138,8 +140,8 @@ public class QuizActivity extends AppCompatActivity {
         AlertDialog.Builder resultDialog = new AlertDialog.Builder(this);
 
         resultDialog.setTitle("RESULT");
-        resultDialog.setMessage("NAME: ");
-        resultDialog.setMessage("SCORE: " + curScore);
+        resultDialog.setMessage("Player: "+ playerName + " Got " + curScore + " Score" );
+
         resultDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 finish();
@@ -158,7 +160,7 @@ public class QuizActivity extends AppCompatActivity {
                 option2.setText(quizList.get(curPos).getAns2());
                 option3.setText(quizList.get(curPos).getAns3());
                 option4.setText(quizList.get(curPos).getAns4());
-                
+
                 dialog.cancel();
             }
         });
