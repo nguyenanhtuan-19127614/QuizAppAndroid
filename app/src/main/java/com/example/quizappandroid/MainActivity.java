@@ -32,4 +32,5 @@ public class MainActivity extends AppCompatActivity {
         Intent quizActivity = new Intent(this, QuizActivity.class);
         startActivity(quizActivity);
     }
+
 }

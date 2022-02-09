@@ -4,12 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.app.Fragment;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -21,6 +28,7 @@ public class QuizActivity extends AppCompatActivity {
     private ArrayList<QuizBody> quizList;
     Random random;
     int curPos, curScore=0, numQuest=0;
+    String playerName;
     Drawable originBtnColor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,8 @@ public class QuizActivity extends AppCompatActivity {
         option4=findViewById(R.id.opt4);
         originBtnColor=option1.getBackground();
         quizList=new ArrayList<>();
+        EditText inputname=findViewById(R.id.inputName);
+
         random=new Random();
         //lấy dữ liệu quiz
         getQuiz(quizList);
@@ -107,18 +117,12 @@ public class QuizActivity extends AppCompatActivity {
         colorAnimation2.start();
     }
     private void setView(int curPos){
-        numberQuestionView.setText(" Number Question:" + this.numQuest+ "/" + this.quizList.size());
+        numberQuestionView.setText(" Number Question:" + numQuest+ "/" + quizList.size());
         scoreView.setText("Score:" + curScore);
         if(this.numQuest==this.quizList.size())
         {
-            String result= "Your Score Is: "+ curScore;
-            Toast toast = Toast.makeText(QuizActivity.this, result,  Toast.LENGTH_SHORT);
-            toast.show();
-            this.curPos=random.nextInt(quizList.size());
-            curScore=0;
-            numQuest=0;
-            numberQuestionView.setText(" Number Question:" + this.numQuest+ "/" + this.quizList.size());
-            scoreView.setText("Score:" + curScore);
+            showResultDialog();
+
         }
         else
         {
@@ -129,5 +133,36 @@ public class QuizActivity extends AppCompatActivity {
             option3.setText(quizList.get(curPos).getAns3());
             option4.setText(quizList.get(curPos).getAns4());
         }
+    }
+    private void showResultDialog(){
+        AlertDialog.Builder resultDialog = new AlertDialog.Builder(this);
+
+        resultDialog.setTitle("RESULT");
+        resultDialog.setMessage("NAME: ");
+        resultDialog.setMessage("SCORE: " + curScore);
+        resultDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        resultDialog.setNegativeButton("Replay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                curScore=0;
+                numQuest=0;
+                numberQuestionView.setText(" Number Question:" + numQuest+ "/" + quizList.size());
+                scoreView.setText("Score:" + curScore);
+
+                curPos=random.nextInt(quizList.size());
+                questionName.setText(quizList.get(curPos).getQuestion());
+                option1.setText(quizList.get(curPos).getAns1());
+                option2.setText(quizList.get(curPos).getAns2());
+                option3.setText(quizList.get(curPos).getAns3());
+                option4.setText(quizList.get(curPos).getAns4());
+                
+                dialog.cancel();
+            }
+        });
+        AlertDialog al = resultDialog.create();
+        al.show();
     }
 }
