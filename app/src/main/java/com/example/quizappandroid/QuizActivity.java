@@ -1,6 +1,9 @@
 package com.example.quizappandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -62,18 +65,46 @@ public class QuizActivity extends AppCompatActivity {
                         opt.getText().toString().trim().toLowerCase()))
                 {
                     curScore+=1;
-                    opt.setBackgroundColor(Color.GREEN);
+                    changeColorAnimation(opt,Color.parseColor("#6200EE"),Color.GREEN);
                 }
                 else
                 {
                     opt.setBackgroundColor(Color.RED);
+                    changeColorAnimation(opt,Color.parseColor("#6200EE"),Color.RED);
                 }
 
+                //opt.setBackgroundColor(Color.parseColor("#6200EE"));
                 numQuest++;
                 curPos=random.nextInt(quizList.size());
                 setView(curPos);
             }
         });
+    }
+    private void changeColorAnimation(Button opt, int colorFrom, int colorTo){
+        ValueAnimator colorAnimation1 = ValueAnimator.ofObject(new ArgbEvaluator(),
+                colorFrom,  colorTo);
+
+        colorAnimation1.setDuration(1000); // milliseconds
+        colorAnimation1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                opt.setBackgroundColor((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        colorAnimation1.start();
+
+        ValueAnimator colorAnimation2 = ValueAnimator.ofObject(new ArgbEvaluator(),
+                colorTo,  colorFrom);
+
+        colorAnimation2.setDuration(500); // milliseconds
+        colorAnimation2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                opt.setBackgroundColor((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        colorAnimation2.setStartDelay(1000);
+        colorAnimation2.start();
     }
     private void setView(int curPos){
         numberQuestionView.setText(" Number Question:" + this.numQuest+ "/" + this.quizList.size());
